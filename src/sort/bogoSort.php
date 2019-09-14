@@ -8,31 +8,40 @@
 |-------------------------------
 */
 
-function bogoSort()
+test();
+
+function test()
 {
-    function swap(&$array, $i, $j)
-    {
-        $tmp = $array[$i];
-        $array[$j] = $array[$i];
-        $array[$i] = $tmp
-    }
+    $arr = [12, 9, 65, 76];
+    $result = bogoSort($arr);
+    var_dump($result);
+}
 
-    function isSorted($array)
-    {
-        for($i=0;$i<count($array)-1;$i++) {
-            if ($array[$i] > $array[$i+1]) {
-                return false;
-            }
-        }
-        return true;
-    }
-
+function bogoSort($array=[])
+{
+    if (empty($array)) return $array;
     $isSorted = false;
     while (!$isSorted) {
         shuffle($array);
-        $isSorted　＝　isSorted($array);
+        $isSorted = isSorted($array);
     }
+    return $array;
 }
 
+function swap(&$array, $i, $j)
+{
+    $tmp = $array[$i];
+    $array[$j] = $array[$i];
+    $array[$i] = $tmp;
+}
 
+function isSorted($array)
+{
+    for($i=0;$i<count($array)-1;$i++) {
+        if ($array[$i] > $array[$i+1]) {
+            return false;
+        }
+    }
+    return true;
+}
  
