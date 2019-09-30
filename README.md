@@ -8,7 +8,7 @@
 * 列表
     * 双向链表
 * 算法
-    * [最长连续序列](./src/algorism/longest-consecutive-sequence)
+    * [最长连续序列](./src/algorism/longest-consecutive-sequence/index.php)
     
 ## 参考资料
 * https://github.com/TheAlgorithms/Python
