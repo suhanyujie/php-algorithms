@@ -7,6 +7,8 @@
     * [插入排序](./src/sort/insertSort.php)
 * 列表
     * 双向链表
-
+* 算法
+    * [最长连续序列](./src/algorism/longest-consecutive-sequence)
+    
 ## 参考资料
 * https://github.com/TheAlgorithms/Python
