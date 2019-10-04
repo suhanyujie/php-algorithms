@@ -17,14 +17,21 @@ class Solution {
      */
     function myAtoi($str) {
         $num = 0;
+        $flag = 1;
         for ($i=0;$i<strlen($str);$i++) {
+            if ($this->isFlag($str[$i])) {
+                if ($str[$i] === '-') {
+                    $flag = -1;
+                }
+                continue;
+            }
             if ($this->isDigit($str[$i])) {
                 $num = $num * 10 + $str[$i];
             } else {
                 break;
             }
         }
-        return $num;
+        return $num * $flag;
     }
 
 
@@ -35,11 +42,23 @@ class Solution {
     {
         return $char >= '0' && $char <= '9';
     }
+
+
+    /**
+     * @desc
+     */
+    public function isFlag($char='')
+    {
+        return $char == '-' || $char == '+';
+    }
 }
 
 function test()
 {
     $testData = "15.23abc";
+    $res = (new Solution)->myAtoi($testData);
+    var_dump($res);
+    $testData = '-111.98k';
     $res = (new Solution)->myAtoi($testData);
     var_dump($res);
 }
