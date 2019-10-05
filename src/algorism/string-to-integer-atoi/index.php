@@ -18,7 +18,11 @@ class Solution {
     function myAtoi($str) {
         $num = 0;
         $flag = 1;
+        $i32Max = 1<<32 - 1;
         for ($i=0;$i<strlen($str);$i++) {
+            if ($str[$i] === ' ') {
+                continue;
+            }
             if ($this->isFlag($str[$i])) {
                 if ($str[$i] === '-') {
                     $flag = -1;
@@ -27,6 +31,10 @@ class Solution {
             }
             if ($this->isDigit($str[$i])) {
                 $num = $num * 10 + $str[$i];
+                if ($num > $i32Max) {
+                    $num = $i32Max;
+                    break;
+                }
             } else {
                 break;
             }
@@ -61,6 +69,10 @@ function test()
     $testData = '-111.98k';
     $res = (new Solution)->myAtoi($testData);
     var_dump($res);
+    $testData = "-91283472332";
+    $res = (new Solution)->myAtoi($testData);
+    var_dump($res);
+
 }
 
 test();
