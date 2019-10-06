@@ -19,13 +19,13 @@ class Solution {
         $num = 0;
         $flag = 1;
         $i32Max = 1<<32 - 1;
+        $str = trim($str);
         for ($i=0;$i<strlen($str);$i++) {
-            if ($str[$i] === ' ') {
-                continue;
-            }
-            if ($this->isFlag($str[$i])) {
+            if ($i == 0 && $this->isFlag($str[$i])) {
                 if ($str[$i] === '-') {
-                    $flag = -1;
+                    $flag *= -1;
+                } else if ($str[$i] === '+') {
+                    $flag *= 1;
                 }
                 continue;
             }
@@ -38,6 +38,8 @@ class Solution {
             } else {
                 break;
             }
+
+
         }
         return $num * $flag;
     }
@@ -63,13 +65,22 @@ class Solution {
 
 function test()
 {
-    $testData = "15.23abc";
-    $res = (new Solution)->myAtoi($testData);
-    var_dump($res);
-    $testData = '-111.98k';
-    $res = (new Solution)->myAtoi($testData);
-    var_dump($res);
-    $testData = "-91283472332";
+//    $testData = "15.23abc";
+//    $res = (new Solution)->myAtoi($testData);
+//    var_dump($res);
+//    $testData = '-111.98k';
+//    $res = (new Solution)->myAtoi($testData);
+//    var_dump($res);
+//    $testData = "-91283472332";
+//    $res = (new Solution)->myAtoi($testData);
+//    var_dump($res);
+//    $testData = "--91283472332";
+//    $res = (new Solution)->myAtoi($testData);
+//    var_dump($res);
+//    $testData = " -42";
+//    $res = (new Solution)->myAtoi($testData);
+//    var_dump($res);
+    $testData = "   +0 123";
     $res = (new Solution)->myAtoi($testData);
     var_dump($res);
 
