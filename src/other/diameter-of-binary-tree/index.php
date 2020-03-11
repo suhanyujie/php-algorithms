@@ -14,11 +14,11 @@ class Solution
 
 class Node 
 {
+    protected $data = null;
+
     public $left = null;
 
     public $right = null;
-
-    protected $data = null;
 
     public function __construct($data)
     {
@@ -84,9 +84,34 @@ class Root
         return Root::$root;
     }
 
-    public function getMaxLength(Node $node)
+    public function getLeftLength($node=null)
     {
+        if (empty($node)) {
+            return 0;
+        }
+        $currentNode = $node;
+        if (empty($currentNode->left)) {
+            return 1;
+        }
+        $leftLen = $this->getLeftLength($currentNode->left) + 1;
+        $rightLen = $this->getRightLength($currentNode->right);
 
+        return $leftLen > $rightLen ? $leftLen : $rightLen;
+    }
+
+    public function getRightLength($node=null)
+    {
+        if (empty($node)) {
+            return 0;
+        }
+        $currentNode = $node;
+        if (empty($currentNode->right)) {
+            return 1;
+        }
+        $leftLen = $this->getLeftLength($currentNode->left);
+        $rightLen = $this->getRightLength($currentNode->right) + 1;
+
+        return $leftLen > $rightLen ? $leftLen : $rightLen;
     }
 }
 
@@ -104,4 +129,11 @@ $root = new Root((new Node(1)));
 $root->insert($root, (new Node(2)));
 $root->insert($root, (new Node(3)));
 $root->insert($root, (new Node(-1)));
-var_dump($root, $root->getRootNode());
+$root->insert($root, (new Node(-4)));
+$root->insert($root, (new Node(-6)));
+
+$rootNode = $root->getRootNode();
+$leftLen = $root->getleftLength($rootNode) - 1;
+$rightLen = $root->getRightLength($rootNode) - 1;
+var_dump($leftLen, $rightLen);
+var_dump($root->getRootNode());
