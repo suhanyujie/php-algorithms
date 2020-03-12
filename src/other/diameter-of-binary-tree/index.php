@@ -7,15 +7,41 @@
 
 class Solution
 {
-    public function diameter_of_binary_tree()
+    /**
+     * @param TreeNode $root
+     * @return Integer
+     */
+    public function diameterOfBinaryTree($root)
     {
+        $node = $root;
+        if (empty($node)) {
+            return 0;
+        }
+        if (empty($root->left) && empty($root->right)) {
+            return 0;
+        }
+        $max = Root::$maxDiameter;
+        if (!empty($node->left)) {
+            $this->diameterOfBinaryTree($node->left);
+        }
+        // 获取自身节点的左右深度之和
+        $leftLen = Root::getleftLength($node) - 1;
+        $rightLen = Root::getRightLength($node) - 1;
+        $totalDeepNum = $leftLen + $rightLen;
+        if ($max < $totalDeepNum) {
+            Root::$maxDiameter = $totalDeepNum;
+        }
+        if (!empty($node->right)) {
+            $this->diameterOfBinaryTree($node->right);
+        }
 
+        return Root::$maxDiameter;
     }
 }
 
 class Node
 {
-    protected $data = null;
+    protected $val = null;
 
     public $left = null;
 
@@ -23,12 +49,12 @@ class Node
 
     public function __construct($data)
     {
-        $this->data = $data;
+        $this->val = $data;
     }
 
     public function getData()
     {
-        return $this->data;
+        return $this->val;
     }
 }
 
@@ -191,13 +217,13 @@ function preTraversePrintDeep($node = null)
     }
 }
 
-$root = new Root((new Node(1)));
-$root->insert($root, (new Node(2)));
-$root->insert($root, (new Node(3)));
-$root->insert($root, (new Node(-1)));
-$root->insert($root, (new Node(-4)));
-$root->insert($root, (new Node(-6)));
-
+// test
+$root = new Root((new Node(20)));
+$dataList = [15, 3, 4, 5, 6, 7, 8, 16, 17, 18, 19];
+foreach ($dataList as $k=>$val) {
+    $root->insert($root, (new Node($val)));
+}
 $rootNode = $root->getRootNode();
-$maxDiameter = getMaxDiameter($rootNode);
+$maxDiameter = (new Solution)->diameterOfBinaryTree($rootNode);
 echo "the max diameter:{$maxDiameter}\n";
+preTraversePrintData($rootNode);
