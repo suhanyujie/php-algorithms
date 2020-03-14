@@ -144,7 +144,7 @@ class Root
     }
 
     // 获取最大的树直径
-    function getMaxDiameter($node)
+    public function getMaxDiameter($node)
     {
         if (empty($node)) {
             return 0;
@@ -220,10 +220,16 @@ function preTraversePrintDeep($node = null)
 // test
 $root = new Root((new Node(20)));
 $dataList = [15, 3, 4, 5, 6, 7, 8, 16, 17, 18, 19];
-foreach ($dataList as $k=>$val) {
+$dataList = [15, 3, 4, 5, 16, 17];
+foreach ($dataList as $k => $val) {
     $root->insert($root, (new Node($val)));
 }
 $rootNode = $root->getRootNode();
-$maxDiameter = (new Solution)->diameterOfBinaryTree($rootNode);
+$solution = (new Solution);
+$maxDiameter = $solution->diameterOfBinaryTree($rootNode);
 echo "the max diameter:{$maxDiameter}\n";
 preTraversePrintData($rootNode);
+
+// debug
+$result = $solution->diameterOfBinaryTree($rootNode);
+var_dump($rootNode);
