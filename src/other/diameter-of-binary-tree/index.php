@@ -5,6 +5,15 @@
  * 状态：ok
  */
 
+ /**
+  * Definition for a binary tree node.
+  * class TreeNode {
+  *     public $val = null;
+  *     public $left = null;
+  *     public $right = null;
+  *     function __construct($value) { $this->val = $value; }
+  * }
+  */
 class Solution
 {
     /**
@@ -37,7 +46,7 @@ class Solution
     }
 }
 
-class Node
+class MyTreeNode
 {
     public $val = null;
 
@@ -58,20 +67,20 @@ class Node
 
 class Root
 {
-    /**@var Node */
+    /**@var MyTreeNode */
     public static $root = null;
 
     protected $nodeNum = 0;
 
     public static $maxDiameter = 0;
 
-    public function __construct(Node $node)
+    public function __construct(MyTreeNode $node)
     {
         Root::$root = $node;
         $this->nodeNum++;
     }
 
-    public function insert(Root $root, Node $newNode)
+    public function insert(Root $root, MyTreeNode $newNode)
     {
         if (is_null($root)) {
             Root::$root = new self($newNode);
@@ -159,39 +168,19 @@ class Root
     // 获取最大的树直径
     public function getMaxDiameter($node)
     {
-        if (empty($node)) {
-            return 0;
-        }
-        $max = Root::$maxDiameter;
-        if (!empty($node->left)) {
-            self::getMaxDiameter($node->left);
-        }
-        // 获取自身节点的左右深度之和
-        $leftLen = Root::getleftLength($node) - 1;
-        $rightLen = Root::getRightLength($node) - 1;
-        $totalDeepNum = $leftLen + $rightLen;
-        if ($max < $totalDeepNum) {
-            Root::$maxDiameter = $totalDeepNum;
-        }
-        if (!empty($node->right)) {
-            self::getMaxDiameter($node->right);
-        }
-
-        return Root::$maxDiameter;
+        return (new Solution)->diameterOfBinaryTree($node);
     }
 }
 
 // test
-$root = new Root((new Node(20)));
 $dataList = [15, 3, 4, 5, 6, 7, 8, 16, 17, 18, 19];
 $dataList = [1, 2];
-$root = null;
 foreach ($dataList as $k => $val) {
     if ($k === 0) {
-        $root = new Root((new Node($val)));
+        $root = new Root((new MyTreeNode($val)));
         continue;
     }
-    $root->insert($root, (new Node($val)));
+    $root->insert($root, (new MyTreeNode($val)));
 }
 $rootNode = $root->getRootNode();
 $solution = (new Solution);
