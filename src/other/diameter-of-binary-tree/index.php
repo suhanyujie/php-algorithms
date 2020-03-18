@@ -185,11 +185,12 @@ class Root
 $root = new Root((new Node(20)));
 $dataList = [15, 3, 4, 5, 6, 7, 8, 16, 17, 18, 19];
 $dataList = [1, 2];
-$root = new Root((new Node(1)));
-$dataList = [2];
-
-
+$root = null;
 foreach ($dataList as $k => $val) {
+    if ($k === 0) {
+        $root = new Root((new Node($val)));
+        continue;
+    }
     $root->insert($root, (new Node($val)));
 }
 $rootNode = $root->getRootNode();
